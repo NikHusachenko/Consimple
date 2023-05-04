@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Consimple.Common\Consimple.Common.csproj" />
     <ProjectReference Include="..\Consimple.Database\Consimple.Database.csproj" />
     <ProjectReference Include="..\Consimple.EntityFramework\Consimple.EntityFramework.csproj" />
     <ProjectReference Include="..\Consimple.Services\Consimple.Services.csproj" />

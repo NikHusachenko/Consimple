@@ -1,4 +1,5 @@
-﻿using Consimple.Services.ClientServices.Models;
+﻿using Consimple.Database.Entities;
+using Consimple.Services.ClientServices.Models;
 using Consimple.Services.Response;
 
 namespace Consimple.Services.ClientServices
@@ -8,5 +9,7 @@ namespace Consimple.Services.ClientServices
         Task<ResponseService> CheckClientExists(string fistName, string lastName, string middleName);
 
         Task<ResponseService<long>> Create(CreateClientHttpPostViewModel vm);
+
+        Task<ICollection<ClientEntity>> GetAll();
     }
 }

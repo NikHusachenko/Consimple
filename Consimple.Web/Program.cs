@@ -1,6 +1,11 @@
 using Consimple.EntityFramework;
 using Consimple.EntityFramework.Repository;
+using Consimple.Services.CategoryServices;
+using Consimple.Services.CategoryServices.Models;
 using Consimple.Services.ClientServices;
+using Consimple.Services.ClientServices.Models;
+using Consimple.Services.ProductServices;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Consimple.Web
@@ -13,12 +18,19 @@ namespace Consimple.Web
 
             IServiceCollection services = builder.Services;
 
+            // Configurations
             services.AddControllers();
-
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            // Validators
+            services.AddScoped<IValidator<CreateClientHttpPostViewModel>, CreateClientHttpPostViewModelValidator>();
+            services.AddScoped<IValidator<CreateCategoryHttpPostViewModel>, CreateCategoryHttpPostViewModelValidator>();
+
+            // Services
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
             
             var app = builder.Build();
 

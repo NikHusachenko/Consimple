@@ -15,7 +15,7 @@
         public DateTime? ModiliedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
 
-        public long CheckFK { get; set; }
+        public long? CheckFK { get; set; }
         public CheckEntity Check { get; set; }
 
         public ICollection<ProductCategoryEntity> Categories { get; set; }

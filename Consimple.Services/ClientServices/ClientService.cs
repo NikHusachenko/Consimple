@@ -4,6 +4,7 @@ using Consimple.Database.Enums;
 using Consimple.EntityFramework.Repository;
 using Consimple.Services.ClientServices.Models;
 using Consimple.Services.Response;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Consimple.Services.ClientServices
@@ -29,7 +30,7 @@ namespace Consimple.Services.ClientServices
 
             if (dbRecord != null)
             {
-                return ResponseService.Error(Errors.WAS_CREATED);
+                return ResponseService.Error(Errors.WAS_CREATED_ERROR);
             }
             return ResponseService.Ok();
         }
@@ -62,6 +63,12 @@ namespace Consimple.Services.ClientServices
                 _logger.LogError($"ClientService -> Create exception: {ex.Message}");
                 return ResponseService<long>.Error(ex.Message);
             }
+        }
+
+        public async Task<ICollection<ClientEntity>> GetAll()
+        {
+            return await _clientRepository.GetAll()
+                .ToListAsync();
         }
     }
 }
