@@ -1,4 +1,6 @@
-﻿namespace Consimple.Database.Entities
+﻿using Consimple.Database.Enums;
+
+namespace Consimple.Database.Entities
 {
     public class ClientEntity
     {
@@ -12,8 +14,9 @@
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public DateTime BirthDate { get; set; }
+        public UserType Type { get; set; }
         
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public DateTime? ModiliedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
 

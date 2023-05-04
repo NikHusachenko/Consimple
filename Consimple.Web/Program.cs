@@ -1,4 +1,6 @@
 using Consimple.EntityFramework;
+using Consimple.EntityFramework.Repository;
+using Consimple.Services.ClientServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Consimple.Web
@@ -14,6 +16,9 @@ namespace Consimple.Web
             services.AddControllers();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddTransient<IClientService, ClientService>();
             
             var app = builder.Build();
 

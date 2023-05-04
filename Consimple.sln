@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consimple.Web", "Consimple.Web\Consimple.Web.csproj", "{231A7F7B-E2F6-438B-9A6D-7F83AC5D0B87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consimple.Web", "Consimple.Web\Consimple.Web.csproj", "{231A7F7B-E2F6-438B-9A6D-7F83AC5D0B87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consimple.Database", "Consimple.Database\Consimple.Database.csproj", "{ED803236-CD18-4EF2-80EF-A6B2DDBE91F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consimple.Database", "Consimple.Database\Consimple.Database.csproj", "{ED803236-CD18-4EF2-80EF-A6B2DDBE91F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consimple.EntityFramework", "Consimple.EntityFramework\Consimple.EntityFramework.csproj", "{D6FD50DC-31C0-44C7-835A-3EB82C233DC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consimple.EntityFramework", "Consimple.EntityFramework\Consimple.EntityFramework.csproj", "{D6FD50DC-31C0-44C7-835A-3EB82C233DC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consimple.Services", "Consimple.Services\Consimple.Services.csproj", "{7DDC3A53-D569-4FD0-8081-3A3DD2D4E320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consimple.Services", "Consimple.Services\Consimple.Services.csproj", "{7DDC3A53-D569-4FD0-8081-3A3DD2D4E320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consimple.Common", "Consimple.Common\Consimple.Common.csproj", "{0526AE5F-8B43-4B5F-A250-5F40410C2E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7DDC3A53-D569-4FD0-8081-3A3DD2D4E320}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DDC3A53-D569-4FD0-8081-3A3DD2D4E320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DDC3A53-D569-4FD0-8081-3A3DD2D4E320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0526AE5F-8B43-4B5F-A250-5F40410C2E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0526AE5F-8B43-4B5F-A250-5F40410C2E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0526AE5F-8B43-4B5F-A250-5F40410C2E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0526AE5F-8B43-4B5F-A250-5F40410C2E05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
