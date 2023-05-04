@@ -1,9 +1,11 @@
 ﻿using Consimple.Common;
 using Consimple.Database.Entities;
+using Consimple.Services.CheckServices;
 using Consimple.Services.ClientServices;
 using Consimple.Services.ClientServices.Models;
 using Consimple.Web.Models.Client;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Consimple.Web.Controllers
 {
@@ -12,10 +14,13 @@ namespace Consimple.Web.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
+        private readonly ICheckService _checkService;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientService clientService,
+            ICheckService checkService)
         {
             _clientService = clientService;
+            _checkService = checkService;
         }
 
         [HttpPost]
@@ -46,11 +51,11 @@ namespace Consimple.Web.Controllers
 
         [HttpGet]
         [Route("Birthday")]
-        public async Task<ICollection<BirthdayHttpGetViewModel>> GetBirthday(DateTime birthDate)
+        public async Task<ICollection<ClientDefaultHttpGetViewModel>> GetBirthday(DateTime birthDate)
         {
             var clients = await _clientService.GetBirthday(birthDate);
-            List<BirthdayHttpGetViewModel> model = new List<BirthdayHttpGetViewModel>();
-            model.AddRange(clients.Select(client => new BirthdayHttpGetViewModel
+            List<ClientDefaultHttpGetViewModel> model = new List<ClientDefaultHttpGetViewModel>();
+            model.AddRange(clients.Select(client => new ClientDefaultHttpGetViewModel
             {
                 Id = client.Id,
                 FirstName = client.FirstName,
@@ -59,6 +64,22 @@ namespace Consimple.Web.Controllers
             }));
 
             return model;
+        }
+
+        [HttpGet]
+        [Route("last")]
+        public async Task<ICollection<ClientDefaultHttpGetViewModel>> GetLastBuyers(DateTime from, bool? isClosed)
+        {
+            ICollection<CheckEntity> checks = await _checkService.GetFromDate(from, isClosed);
+            List<ClientDefaultHttpGetViewModel> vm = new List<ClientDefaultHttpGetViewModel>();
+            vm.AddRange(checks.Select(check => new ClientDefaultHttpGetViewModel()
+            {
+                FirstName = check.Client.FirstName,
+                LastName = check.Client.LastName,
+                Id = check.Client.Id,
+                MiddleName = check.Client.MiddleName,
+            }));
+            return vm;
         }
     }
 }

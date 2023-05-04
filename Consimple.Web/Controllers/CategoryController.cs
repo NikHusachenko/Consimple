@@ -2,6 +2,7 @@
 using Consimple.Database.Entities;
 using Consimple.Services.CategoryServices;
 using Consimple.Services.CategoryServices.Models;
+using Consimple.Web.Models.Category;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consimple.Web.Controllers
@@ -41,6 +42,26 @@ namespace Consimple.Web.Controllers
             }
 
             return Ok(new { success = true, message = Messages.CREATED_SUCCESSFULY });
+        }
+
+        [HttpGet]
+        [Route("DemandedCategories")]
+        public async Task<DemandedCategoriesHttpGetViewModel> DemandedCategories(long clientId)
+        {
+            var result = await _categoryService.GetDemandedCategories(clientId);
+            DemandedCategoriesHttpGetViewModel vm = new DemandedCategoriesHttpGetViewModel()
+            {
+                DemandedCategories = new List<IDictionary<string, int>>(),
+            };
+
+            foreach (var category in result)
+            {
+                IDictionary<string, int> categories = new Dictionary<string, int>();
+                categories.Add(category.Name, category.Products.Count);
+                vm.DemandedCategories.Add(categories);
+            }
+
+            return vm;
         }
     }
 }

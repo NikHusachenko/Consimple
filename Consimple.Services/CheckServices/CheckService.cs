@@ -53,11 +53,17 @@ namespace Consimple.Services.CheckServices
                 .ToListAsync();
         }
 
-        public async Task<ICollection<CheckEntity>> GetByDate(DateTime date)
+        public async Task<ICollection<CheckEntity>> GetByDate(DateTime date, bool? isClosed)
         {
-            return await _checkRepository.GetAll()
-                .Where(check => check.OpenedOn == date)
-                .ToListAsync();
+            IQueryable<CheckEntity> query = _checkRepository.GetAll()
+                .Where(check => check.OpenedOn == date);
+
+            if (isClosed != null)
+            {
+                query = query.Where(check => check.IsClosed == isClosed.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<ResponseService<CheckEntity>> GetById(long id)
@@ -70,19 +76,32 @@ namespace Consimple.Services.CheckServices
             return ResponseService<CheckEntity>.Ok(dbRecord);
         }
 
-        public async Task<ICollection<CheckEntity>> GetByPeriod(DateTime from, DateTime to)
+        public async Task<ICollection<CheckEntity>> GetByPeriod(DateTime from, DateTime to, bool? isClosed)
         {
-            return await _checkRepository.GetAll()
+             IQueryable<CheckEntity> query = _checkRepository.GetAll()
                 .Where(check => check.OpenedOn >= from &&
-                    check.OpenedOn <= to)
-                .ToListAsync();
+                    check.OpenedOn <= to);
+
+            if (isClosed != null)
+            {
+                query = query.Where(check => check.IsClosed == isClosed.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
-        public async Task<ICollection<CheckEntity>> GetFromDate(DateTime date)
+        public async Task<ICollection<CheckEntity>> GetFromDate(DateTime date, bool? isClosed)
         {
-            return await _checkRepository.GetAll()
+            IQueryable<CheckEntity> query = _checkRepository.GetAll()
                 .Where(check => check.OpenedOn >= date)
-                .ToListAsync();
+                .Include(check => check.Client);
+
+            if (isClosed != null)
+            {
+                query = query.Where(check => check.IsClosed == isClosed.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<CheckEntity> GetLast()

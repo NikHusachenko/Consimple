@@ -1,6 +1,6 @@
 ﻿namespace Consimple.Web.Models.Client
 {
-    public class BirthdayHttpGetViewModel
+    public class ClientDefaultHttpGetViewModel
     {
         public long Id { get; set; }
         public string FirstName { get; set; }

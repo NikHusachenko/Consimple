@@ -11,8 +11,8 @@ namespace Consimple.Services.CheckServices
         Task<ResponseService<CheckEntity>> GetById(long id);
         Task<CheckEntity> GetLast();
         Task<ICollection<CheckEntity>> GetAll();
-        Task<ICollection<CheckEntity>> GetByDate(DateTime date);
-        Task<ICollection<CheckEntity>> GetByPeriod(DateTime from, DateTime to);
-        Task<ICollection<CheckEntity>> GetFromDate(DateTime date);
+        Task<ICollection<CheckEntity>> GetByDate(DateTime date, bool? isClosed);
+        Task<ICollection<CheckEntity>> GetByPeriod(DateTime from, DateTime to, bool? isClosed);
+        Task<ICollection<CheckEntity>> GetFromDate(DateTime date, bool? isClosed);
     }
 }

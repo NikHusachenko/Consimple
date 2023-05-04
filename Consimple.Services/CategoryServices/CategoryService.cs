@@ -74,6 +74,18 @@ namespace Consimple.Services.CategoryServices
             return ResponseService<CategoryEntity>.Ok(dbRecord);
         }
 
+        public async Task<ICollection<CategoryEntity>> GetDemandedCategories(long clientId)
+        {
+            return await _categoryRepository.GetAll()
+                .Include(category => category.Products)
+                    .ThenInclude(pc => pc.Product)
+                .Where(category => category.Products
+                    .Where(product => !product.Product.DeletedOn.HasValue &&
+                        product.Product.Check.IsClosed &&
+                        product.Product.Check.Client.Id == clientId).Count() > 0)
+                .ToListAsync();
+        }
+
         public async Task<ResponseService> Update(CategoryEntity entity)
         {
             try
@@ -87,5 +99,7 @@ namespace Consimple.Services.CategoryServices
                 return ResponseService.Error(ex.Message);
             }
         }
+
+
     }
 }
