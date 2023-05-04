@@ -70,5 +70,13 @@ namespace Consimple.Services.ClientServices
             return await _clientRepository.GetAll()
                 .ToListAsync();
         }
+
+        public async Task<ICollection<ClientEntity>> GetBirthday(DateTime birthDate)
+        {
+            return await _clientRepository.GetAll()
+                .Where(client => client.BirthDate.Day == birthDate.Day &&
+                    client.BirthDate.Month == birthDate.Month)
+                .ToListAsync();
+        }
     }
 }

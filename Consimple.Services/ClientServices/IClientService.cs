@@ -11,5 +11,6 @@ namespace Consimple.Services.ClientServices
         Task<ResponseService<long>> Create(CreateClientHttpPostViewModel vm);
 
         Task<ICollection<ClientEntity>> GetAll();
+        Task<ICollection<ClientEntity>> GetBirthday(DateTime birthDate);
     }
 }

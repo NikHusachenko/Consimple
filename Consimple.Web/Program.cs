@@ -20,6 +20,7 @@ namespace Consimple.Web
 
             // Configurations
             services.AddControllers();
+            services.AddCors();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -34,6 +35,10 @@ namespace Consimple.Web
             
             var app = builder.Build();
 
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

@@ -10,6 +10,7 @@ namespace Consimple.Services.CategoryServices
 
         Task<ResponseService<CategoryEntity>> GetById(long id);
         Task<ResponseService<CategoryEntity>> GetByName(string name);
+        Task<ICollection<CategoryEntity>> GetAll();
 
         Task<ResponseService> Update(CategoryEntity entity);
     }

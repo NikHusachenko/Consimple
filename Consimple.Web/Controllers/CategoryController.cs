@@ -1,4 +1,5 @@
 ﻿using Consimple.Common;
+using Consimple.Database.Entities;
 using Consimple.Services.CategoryServices;
 using Consimple.Services.CategoryServices.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,16 @@ namespace Consimple.Web.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
+        [Route("all")]
+        public async Task<ICollection<CategoryEntity>> GetAll()
+        {
+            return await _categoryService.GetAll();
+        }
+
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
+        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Create([FromBody]CreateCategoryHttpPostViewModel vm)
         {
             if (!ModelState.IsValid)

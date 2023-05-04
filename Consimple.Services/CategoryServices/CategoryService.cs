@@ -3,6 +3,7 @@ using Consimple.Database.Entities;
 using Consimple.EntityFramework.Repository;
 using Consimple.Services.CategoryServices.Models;
 using Consimple.Services.Response;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Consimple.Services.CategoryServices
@@ -45,6 +46,12 @@ namespace Consimple.Services.CategoryServices
                 _logger.LogError($"CategoryService -> Create exception: {ex.Message}");
                 return ResponseService<long>.Error(ex.Message);
             }
+        }
+
+        public async Task<ICollection<CategoryEntity>> GetAll()
+        {
+            return await _categoryRepository.GetAll()
+                .ToListAsync();
         }
 
         public async Task<ResponseService<CategoryEntity>> GetById(long id)

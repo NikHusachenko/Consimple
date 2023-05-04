@@ -2,6 +2,7 @@
 using Consimple.Database.Entities;
 using Consimple.Services.ClientServices;
 using Consimple.Services.ClientServices.Models;
+using Consimple.Web.Models.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consimple.Web.Controllers
@@ -18,7 +19,7 @@ namespace Consimple.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
         public async Task<IActionResult> Create([FromBody]CreateClientHttpPostViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -35,11 +36,29 @@ namespace Consimple.Web.Controllers
             return Ok(new { success = true, message = Messages.CREATED_SUCCESSFULY });
         }
 
-        [HttpGet("All")]
+        [HttpGet]
+        [Route("all")]
         public async Task<ICollection<ClientEntity>> GetAll()
         {
             ICollection<ClientEntity> clients = await _clientService.GetAll();
             return clients;
+        }
+
+        [HttpGet]
+        [Route("Birthday")]
+        public async Task<ICollection<BirthdayHttpGetViewModel>> GetBirthday(DateTime birthDate)
+        {
+            var clients = await _clientService.GetBirthday(birthDate);
+            List<BirthdayHttpGetViewModel> model = new List<BirthdayHttpGetViewModel>();
+            model.AddRange(clients.Select(client => new BirthdayHttpGetViewModel
+            {
+                Id = client.Id,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                MiddleName = client.MiddleName
+            }));
+
+            return model;
         }
     }
 }
