@@ -1,3 +1,6 @@
+using Consimple.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+
 namespace Consimple.Web
 {
     public class Program
@@ -6,8 +9,12 @@ namespace Consimple.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            IServiceCollection services = builder.Services;
 
+            services.AddControllers();
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value));
+            
             var app = builder.Build();
 
 
