@@ -4,6 +4,7 @@ using Consimple.EntityFramework.Repository;
 using Consimple.Services.CategoryServices;
 using Consimple.Services.ProductServices.Models;
 using Consimple.Services.Response;
+using Microsoft.Extensions.Logging;
 
 namespace Consimple.Services.ProductServices
 {
@@ -12,14 +13,17 @@ namespace Consimple.Services.ProductServices
         private readonly IGenericRepository<ProductEntity> _productRepository;
         private readonly IGenericRepository<ProductCategoryEntity> _productCategoryRepository;
         private readonly ICategoryService _categoryService;
+        private readonly ILogger<ProductService> _logger;
 
         public ProductService(IGenericRepository<ProductEntity> productRepository,
             IGenericRepository<ProductCategoryEntity> productCategoryRepository,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            ILogger<ProductService> logger)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
             _categoryService = categoryService;
+            _logger = logger;
         }
 
         public async Task<ResponseService<long>> Create(CreateProductHttpPostViewModel vm)
@@ -55,6 +59,20 @@ namespace Consimple.Services.ProductServices
             }
 
             return ResponseService<long>.Ok(dbRecord.Id);
+        }
+
+        public async Task<ResponseService> Update(ProductEntity entity)
+        {
+            try
+            {
+                await _productRepository.Update(entity);
+                return ResponseService.Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ProductService -> Update exception: {ex.Message}");
+                return ResponseService.Error(ex.Message);
+            }
         }
     }
 }

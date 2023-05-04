@@ -4,6 +4,7 @@ using Consimple.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Consimple.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504165734_AddedIsClosedToCheckEntity")]
+    partial class AddedIsClosedToCheckEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +54,8 @@ namespace Consimple.EntityFramework.Migrations
                     b.Property<long>("ClientFK")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("ClosedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsClosed")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("OpenedOn")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
